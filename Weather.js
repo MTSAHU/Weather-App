@@ -1,12 +1,18 @@
 
 const getWeather = (location) => {
-	const xhr = new XMLHttpRequest(); // Declare xhr as const, no reassignment
-	const url = `https://yahoo-weather5.p.rapidapi.com/weather?location=${encodeURIComponent(location)}`;
-  
-	xhr.open('GET', url);
-	xhr.setRequestHeader('x-rapidapi-key', '5713527a0bmsh3d4580b5c678213p11b36djsn755a7ac72f7f');
-	xhr.setRequestHeader('x-rapidapi-host', 'yahoo-weather5.p.rapidapi.com');
-  
+  fetch(`http://localhost:3000/weather?location=${encodeURIComponent(location)}`)
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .then(weatherData => {
+      console.log("Full API Response:", weatherData);
+      // ...existing code to update DOM elements...
+    })
+    .catch(error => {
+      console.error('Error fetching weather data:', error);
+    });
+};
 	// Handle the response
 	xhr.onload = () => {
 	  if (xhr.status === 200) {
