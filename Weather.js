@@ -1,6 +1,6 @@
 
 const getWeather = (location) => {
-  fetch(`http://localhost:3000/weather?location=${encodeURIComponent(location)}`)
+  fetch(`/weather?location=${encodeURIComponent(location)}`)
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
@@ -8,18 +8,8 @@ const getWeather = (location) => {
     .then(weatherData => {
       console.log("Full API Response:", weatherData);
       // ...existing code to update DOM elements...
-    })
-    .catch(error => {
-      console.error('Error fetching weather data:', error);
-    });
-};
-	// Handle the response
-	xhr.onload = () => {
-	  if (xhr.status === 200) {
-		const weatherData = JSON.parse(xhr.responseText);  // Log successful response
-		console.log("Full API Response:",weatherData);
 
-		// Update Temperature Card
+	  // Update Temperature Card
 		    document.getElementById('temp').innerHTML = `${weatherData.current_observation.condition.temperature}°F`;
             document.getElementById('wind').innerHTML = `Wind Flow: ${weatherData.current_observation.wind.speed} mph`;
             document.getElementById('chill').innerHTML = `:  ${weatherData.current_observation.wind.chill}°F`;
@@ -68,22 +58,15 @@ const getWeather = (location) => {
 			} else {
 			  console.error('Insufficient forecasts data');
 			}
-		  
+	  
+    })
+    .catch(error => {
+      console.error('Error fetching weather data:', error);
+    });
+};
 	
 		
-
-	  } else {
-		console.error('Error:', xhr.status, xhr.statusText); // Log error details
-		console.error(JSON.parse(xhr.responseText)); // Log error message from API
-	  }
-	};
-  
-	xhr.onerror = () => {
-	  console.error('Network Error'); // Handle network issues
-	};
-  
-	xhr.send(); // Send the request
-  };
+ 
   
   // Test with a location
 
